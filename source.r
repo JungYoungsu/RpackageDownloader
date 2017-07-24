@@ -1,6 +1,6 @@
 ###### Setting ######
-# example package : bcROCsurface
-target_packageName <- "bcROCsurface"
+# example packages (1~n) : bcROCsurface, ggplot2
+target_packages <- c("bcROCsurface", "ggplot2")
 
 # Download directory
 dr <- "C:/zips/"
@@ -18,8 +18,7 @@ if(length(new.packages)) install.packages(new.packages)
 library(rvest)
 library(magrittr)
 
-
-packages <<- c(target_packageName)
+packages <<- c(target_packages)
 zips <<- character()
 
 addPackages <- function(pkg_name) {
@@ -49,7 +48,9 @@ addPackages <- function(pkg_name) {
   }
 }
 
-addPackages(target_packageName)
+for ( pk in target_packages ) {
+  addPackages(pk)
+}
 
 
 print(packages)
