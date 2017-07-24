@@ -2,8 +2,8 @@ library(rvest)
 library(magrittr)
 
 ###### Setting ######
-# exmple package : ggplot2
-target_packageName <- "ggplot2"
+# exmple package : bcROCsurface
+target_packageName <- "bcROCsurface"
 
 # Download directory
 dr <- "C:/zips/"
@@ -22,9 +22,9 @@ addPackages <- function(pkg_name) {
   doc <- read_html(address)
   tds <- doc %>% html_nodes("table") %>% html_nodes("td")
   
-  flag <- TRUE
   for ( i in 1:(tds %>% length()) ) {
-    if ( flag && tds %>% extract(i) %>% html_text() == "Imports:") {
+    td <- tds %>% extract(i) %>% html_text()
+    if ( td == "Imports:") {
       import_pkgs <- tds %>% extract(i+1) %>% html_nodes("a")
       
       for ( pkg in import_pkgs ) {
@@ -34,7 +34,17 @@ addPackages <- function(pkg_name) {
           addPackages(pkg_txt)
         }
       }
-      flag <- FALSE
+    }
+    else if ( td == "Depends:") {
+      import_pkgs <- tds %>% extract(i+1) %>% html_nodes("a")
+      
+      for ( pkg in import_pkgs ) {
+        pkg_txt <- pkg %>% html_text()
+        if ( ! pkg_txt %in% packages ) {
+          packages <<- c(packages, pkg_txt)
+          addPackages(pkg_txt)
+        }
+      }
     }
     else if ( grepl ("r-release: ", tds %>% extract(i) %>% html_text()) ) {
       rvec <- strsplit(tds %>% extract(i) %>% html_text(), ", ")
