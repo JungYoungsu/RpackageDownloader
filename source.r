@@ -68,3 +68,5 @@ for ( zip in zips) {
   else
     cat(zip, " : exists", '\n')
 }
+
+print("END")
