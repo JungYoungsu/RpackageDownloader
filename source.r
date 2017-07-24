@@ -1,9 +1,18 @@
 library(rvest)
 library(magrittr)
 
+###### Setting ######
 # exmple package : ggplot2
 target_packageName <- "ggplot2"
 
+# Download directory
+dr <- "C:/zips/"
+
+# Repository
+# CRAN main(r-realese): https://cran.r-project.org/bin/windows/contrib/3.4/
+# Korea Seoul 1 mirror(r-realese):
+repo <- "http://cran.nexr.com/bin/windows/contrib/3.4/"
+###### ####### ######
 
 packages <<- c(target_packageName)
 zips <<- character()
@@ -42,11 +51,10 @@ addPackages(target_packageName)
 print(packages)
 print(zips)
 
-dir.create("zips", showWarnings = FALSE)
+dir.create(dr, showWarnings = FALSE)
 for ( zip in zips) {
-  if( !file.exists(paste0("zips/",zip)) )
-    download.file(paste0("https://cran.r-project.org/bin/windows/contrib/3.4/", zip), paste0("zips/",zip))
+  if( !file.exists(paste0(dr,zip)) )
+    download.file(paste0(repo, zip), paste0(dr,zip))
   else
     cat(zip, " : exists", '\n')
 }
-
