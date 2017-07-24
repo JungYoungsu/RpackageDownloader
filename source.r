@@ -1,5 +1,5 @@
 ###### Setting ######
-# example packages (1~n) : bcROCsurface, ggplot2
+# Target packages (1~n) : (example) bcROCsurface, ggplot2
 target_packages <- c("bcROCsurface", "ggplot2")
 
 # Download directory
