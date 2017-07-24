@@ -1,8 +1,12 @@
+list.of.packages <- c("rvest", "magrittr")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
 library(rvest)
 library(magrittr)
 
 ###### Setting ######
-# exmple package : bcROCsurface
+# example package : bcROCsurface
 target_packageName <- "bcROCsurface"
 
 # Download directory
