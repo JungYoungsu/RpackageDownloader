@@ -46,8 +46,8 @@ addPackages <- function(pkg_name) {
         }
       }
     }
-    else if ( grepl ("r-release: ", tds %>% extract(i) %>% html_text()) ) {
-      rvec <- strsplit(tds %>% extract(i) %>% html_text(), ", ")
+    else if ( grepl ("r-release: ", td) ) {
+      rvec <- strsplit(td, ", ")
       zips <<- c(zips, gsub("r-release: ", "", rvec[[1]] [ grepl("r-release: ", rvec[[1]]) ] ))
       break
     }
